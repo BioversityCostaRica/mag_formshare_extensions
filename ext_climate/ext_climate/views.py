@@ -2,12 +2,13 @@ from formshare.plugins.utilities import FormSharePublicView, FormSharePrivateVie
 
 from pyramid.httpexceptions import HTTPNotFound
 
-from .processes.getData import formSummary, FormsWithRepo,getSensiMaps
+from .processes.getData import formSummary, FormsWithRepo, getSensiMaps
 from .processes.updateProducts import updateProducts
 from .orm.extTask import ExtTask
 from .processes.processStatus import ProcessStatus
 from .processes.evaluateForm import getFormId
 from .processes.reportMAG import main
+
 
 class MyPublicView(FormSharePublicView):
     def process_view(self):
@@ -27,14 +28,10 @@ class MyPrivateView(FormSharePrivateView):
                 settings[key] = value
         if "update_products" in self.request.POST:
             task = updateProducts.apply_async(
-                (
-                    settings,
-                    self.request.POST.get("current_proj")
-                )
+                (settings, self.request.POST.get("current_proj"))
             )
             newExtTask = ExtTask(
-                id_task=task.id,
-                project=self.request.POST.get("current_proj")
+                id_task=task.id, project=self.request.POST.get("current_proj")
             )
 
             try:
@@ -49,16 +46,23 @@ class MyPrivateView(FormSharePrivateView):
             return {"data": False}
         else:
             if "send_forms" in self.request.POST:
-                return {"data": formSummary(self, self.request.POST.get("send_forms")), "fnames": fnames,
-                        "cur_prj": self.request.POST.get("send_forms"),
-                        "formid": getFormId(self,self.request.POST.get("send_forms")),
-                        "status": ProcessStatus(self, self.request.POST.get("project_id")),
-                        "projectDetails": project_details}
+                return {
+                    "data": formSummary(self, self.request.POST.get("send_forms")),
+                    "fnames": fnames,
+                    "cur_prj": self.request.POST.get("send_forms"),
+                    "formid": getFormId(self, self.request.POST.get("send_forms")),
+                    "status": ProcessStatus(self, self.request.POST.get("project_id")),
+                    "projectDetails": project_details,
+                }
             else:
-                return {"data": formSummary(self, fnames[0][1]), "fnames": fnames, "cur_prj": fnames[0][1],
-                        "formid": getFormId(self,fnames[0][1]),
-                        "status": ProcessStatus(self, self.request.POST.get("project_id")),
-                        "projectDetails": project_details}
+                return {
+                    "data": formSummary(self, fnames[0][1]),
+                    "fnames": fnames,
+                    "cur_prj": fnames[0][1],
+                    "formid": getFormId(self, fnames[0][1]),
+                    "status": ProcessStatus(self, self.request.POST.get("project_id")),
+                    "projectDetails": project_details,
+                }
 
 
 class PrjStatus(FormSharePrivateView):
@@ -80,14 +84,11 @@ class PrjReport(FormSharePrivateView):
 
     def process_view(self):
 
-        start=int(self.request.POST.get("start").split("/")[0])
-        end= int(self.request.POST.get("end").split("/")[0])
+        start = int(self.request.POST.get("start").split("/")[0])
+        end = int(self.request.POST.get("end").split("/")[0])
 
         main(self, self.request.POST.get("project_id"), start, end)
         return {"report": main(self, self.request.POST.get("project_id"), start, end)}
-
-
-
 
 
 class SensiMap(FormSharePrivateView):
@@ -98,6 +99,6 @@ class SensiMap(FormSharePrivateView):
         self.returnRawViewResult = True
 
     def process_view(self):
-        div=self.request.matchdict["div"]
+        div = self.request.matchdict["div"]
         prj = self.request.matchdict["prj"]
         return getSensiMaps(self, div, prj)

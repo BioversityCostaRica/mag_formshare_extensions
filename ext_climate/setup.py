@@ -9,14 +9,7 @@ with open(os.path.join(here, "CHANGES.txt")) as f:
     CHANGES = f.read()
 
 
-requires = ["formshare",
-            "matplotlib",
-            "numpy",
-            "geopandas",
-            "descartes",
-            "xlsxwriter"]
-
-
+requires = ["formshare", "matplotlib", "numpy", "geopandas", "descartes", "xlsxwriter"]
 
 
 tests_require = ["WebTest >= 1.3.1", "pytest", "pytest-cov"]  # py3 compat

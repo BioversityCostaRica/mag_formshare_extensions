@@ -13,65 +13,101 @@ def pltcolor(lst, type):
         for l in lst:
             l = str(l)
             if l in ["1"]:
-                cols.append('red')
+                cols.append("red")
             elif l in ["2"]:
-                cols.append('orange')
+                cols.append("orange")
             elif l in ["3"]:
-                cols.append('yellow')
+                cols.append("yellow")
             else:
-                cols.append('green')
+                cols.append("green")
     elif type is "vulnerability":
         for l in lst:
             l = str(l)
             if l in ["11", "12", "13"]:
-                cols.append('red')
+                cols.append("red")
             elif l in ["14", "20", "21"]:
-                cols.append('orange')
+                cols.append("orange")
             elif l in ["22", "23", "24"]:
-                cols.append('yellow')
+                cols.append("yellow")
             else:
-                cols.append('green')
+                cols.append("green")
     elif type is "sensitivity":
         for l in lst:
             l = str(l)
             if l in ["10"]:
-                cols.append('green')
+                cols.append("green")
             elif l in ["20"]:
-                cols.append('yellow')
+                cols.append("yellow")
             elif l in ["30"]:
-                cols.append('orange')
+                cols.append("orange")
             else:
-                cols.append('#CCCCCC')
+                cols.append("#CCCCCC")
 
     return cols
+
+
 # Create the colors list using the function above
 
 
-def genMaps(shp, out, title, field,ptype):
+def genMaps(shp, out, title, field, ptype):
     can = gpd.GeoDataFrame.from_file(shp)
 
     base2 = gpd.GeoDataFrame.from_file(
-        "/home/acoto/Dropbox/Bioversity/MAG/extensions/ext_climate/ext_climate/processes/base/CRI_adm0.shp")
+        "/home/acoto/Dropbox/Bioversity/MAG/extensions/ext_climate/ext_climate/processes/base/CRI_adm0.shp"
+    )
 
     keys = list(can[field].unique())
 
-
-    cols = pltcolor(keys,ptype)
-    cmap = ListedColormap(cols, name='allred')
+    cols = pltcolor(keys, ptype)
+    cmap = ListedColormap(cols, name="allred")
 
     base = can.plot(column=field, cmap=cmap)
-    base2.plot(ax=base, color='gray', alpha=0.4)
+    base2.plot(ax=base, color="gray", alpha=0.4)
 
-    legend_elements = [Line2D([0], [0], marker='.', color='w', label='Alta', markerfacecolor='r', markersize=15),
-                       Line2D([0], [0], marker='.', color='w', label='Media', markerfacecolor='orange', markersize=15),
-                       Line2D([0], [0], marker='.', color='w', label='Baja', markerfacecolor='y', markersize=15),
-                       Line2D([0], [0], marker='.', color='w', label='Nula', markerfacecolor='g', markersize=15), ]
+    legend_elements = [
+        Line2D(
+            [0],
+            [0],
+            marker=".",
+            color="w",
+            label="Alta",
+            markerfacecolor="r",
+            markersize=15,
+        ),
+        Line2D(
+            [0],
+            [0],
+            marker=".",
+            color="w",
+            label="Media",
+            markerfacecolor="orange",
+            markersize=15,
+        ),
+        Line2D(
+            [0],
+            [0],
+            marker=".",
+            color="w",
+            label="Baja",
+            markerfacecolor="y",
+            markersize=15,
+        ),
+        Line2D(
+            [0],
+            [0],
+            marker=".",
+            color="w",
+            label="Nula",
+            markerfacecolor="g",
+            markersize=15,
+        ),
+    ]
 
-    plt.legend(handles=legend_elements, loc='lower left')
+    plt.legend(handles=legend_elements, loc="lower left")
 
     plt.grid(True)
     plt.title(title)
-    plt.axis('off')
+    plt.axis("off")
 
     # plt.show()
 
@@ -87,7 +123,7 @@ def my_maps(settings, project):
         field = ""
         tp, dt, yy, mm = "", "", "", ""
         shp_p = shp.split("/")[-1]
-        print(">>>>>>>>"+shp_p)
+        print(">>>>>>>>" + shp_p)
 
         if "canton" in shp_p:
             dt = "Cantonal"
@@ -96,7 +132,7 @@ def my_maps(settings, project):
 
         if "hazard" in shp_p:
             tp = "Amenaza"
-            ptype="hazard"
+            ptype = "hazard"
             field = "classCode"
         elif "sensitivity" in shp_p:
             tp = "Sensibilidad"
@@ -111,13 +147,25 @@ def my_maps(settings, project):
             yy = shp_p.split("-")[-1][:4]
             mm = shp_p.split("-")[-1][:-4][4:]
 
-            months = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre",
-                      "Octubre",
-                      "Noviembre", "Diciembre"]
+            months = [
+                "",
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Setiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre",
+            ]
             title = "%s %s para %s del %s" % (tp, dt, months[int(mm)], yy)
         elif "sensitivity" in shp_p:
-            title="Sensibilidad %s"%dt
-        genMaps(shp, shp[:-3] + "jpg", title, field,ptype )
+            title = "Sensibilidad %s" % dt
+        genMaps(shp, shp[:-3] + "jpg", title, field, ptype)
 
         # except:
         #    print("erre: "+title)

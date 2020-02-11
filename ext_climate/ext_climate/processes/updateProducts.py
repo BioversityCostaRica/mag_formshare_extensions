@@ -11,16 +11,13 @@ from formshare.config.celery_class import CeleryTask
 from formshare.config.celery_app import celeryApp
 import shutil
 
+
 @celeryApp.task(base=CeleryTask)
 def updateProducts(settings, project):
     try:
-        shutil.rmtree(settings["repository.path"] +"/maps/"+project+"/")
+        shutil.rmtree(settings["repository.path"] + "/maps/" + project + "/")
     except:
         pass
     dist_m(settings, project)
     cant_m(settings, project)
     my_maps(settings, project)
-
-
-
-

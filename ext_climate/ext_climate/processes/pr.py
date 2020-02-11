@@ -74,7 +74,7 @@ myTables = {
             "gps": {"odktype": "geopoint"},
             "endtime_auto": {"odktype": "end"},
             "endtime_calculated": {"odktype": "calculate"},
-            "rowuuid": {"odktype": ""}
+            "rowuuid": {"odktype": ""},
         }
     },
     "livestock_repeat": {
@@ -99,10 +99,10 @@ myTables = {
             "ensilaje": {"odktype": "decimal"},
             "ensilaje_unit": {"odktype": "select one"},
             "fecha_pasto": {"odktype": "date"},
-            "rowuuid": {"odktype": ""}
-
+            "rowuuid": {"odktype": ""},
         }
-    }, "crop_repeat": {
+    },
+    "crop_repeat": {
         "fields": {
             "crop_repeat_rowid": {"odktype": ""},
             "crop_rep_number": {"odktype": "calculate"},
@@ -112,9 +112,9 @@ myTables = {
             "crop_yield_units": {"odktype": "select one"},
             "crop_irrigated": {"odktype": "select one"},
             "fecha_siembra": {"odktype": "date"},
-            "rowuuid": {"odktype": ""}
+            "rowuuid": {"odktype": ""},
         }
-    }
+    },
 }
 
 tree = etree.parse(g("*.xml")[0])
@@ -132,9 +132,15 @@ for k in myTables.keys():
                     t_fields.remove(i.attrib["name"])
                     odktype = myTables[k]["fields"][i.attrib["name"]]["odktype"]
                     if str(i.attrib["odktype"]) != str(odktype):
-                        err.append("En el campo %s el tipo de dato debe ser: %s\n" % (i.attrib["name"], odktype))
+                        err.append(
+                            "En el campo %s el tipo de dato debe ser: %s\n"
+                            % (i.attrib["name"], odktype)
+                        )
         if len(t_fields) is not 0:
-            err.append("En la tabla %s faltan los siguientes campos: %s\n" % (k, ", ".join(t_fields)))
+            err.append(
+                "En la tabla %s faltan los siguientes campos: %s\n"
+                % (k, ", ".join(t_fields))
+            )
     else:
         err.append("No se encuentra la tabla: %s\n" % k)
 

@@ -21,7 +21,7 @@ jsonForReport = {}
 
 def createTableNumber8(month):
 
-    data=[]
+    data = []
     """
     archive = xlsxwriter.Workbook('./cuadro_for_month_' + str(month) + '.xlsx')
     pagine = archive.add_worksheet("Reporte-CNE")
@@ -61,7 +61,7 @@ def createTableNumber8(month):
     row = 2
 
     for province in jsonForReport:
-        rows=[]
+        rows = []
         cantons = ""
         for canton in jsonForReport[province]["Cantons"]:
             if cantons == "":
@@ -69,10 +69,10 @@ def createTableNumber8(month):
             else:
                 cantons += "</br>" + canton
 
-        #pagine.write('A' + str(row), cantons)
-        #pagine.write('B' + str(row), str(jsonForReport[province]["AffectedFamilies"]), rowNumbers)
-        #pagine.write('C' + str(row), str(jsonForReport[province]["AffectedFamilies"]), rowNumbers)
-        #pagine.write('D' + str(row), str(jsonForReport[province]["Area"]), rowNumbers)
+        # pagine.write('A' + str(row), cantons)
+        # pagine.write('B' + str(row), str(jsonForReport[province]["AffectedFamilies"]), rowNumbers)
+        # pagine.write('C' + str(row), str(jsonForReport[province]["AffectedFamilies"]), rowNumbers)
+        # pagine.write('D' + str(row), str(jsonForReport[province]["Area"]), rowNumbers)
         rows.append(cantons)
         rows.append(str(jsonForReport[province]["AffectedFamilies"]))
         rows.append(str(jsonForReport[province]["AffectedFamilies"]))
@@ -80,20 +80,30 @@ def createTableNumber8(month):
         activities = ""
         for activity in jsonForReport[province]["Activities"]:
             if activities == "":
-                activities += activity["activity"] + ": " + str(activity["area"]) + " ha"
+                activities += (
+                    activity["activity"] + ": " + str(activity["area"]) + " ha"
+                )
             else:
-                activities += "</br>" + activity["activity"] + ": " + str(activity["area"]) + " ha"
+                activities += (
+                    "</br>"
+                    + activity["activity"]
+                    + ": "
+                    + str(activity["area"])
+                    + " ha"
+                )
 
-        #pagine.write('E' + str(row), activities)
+        # pagine.write('E' + str(row), activities)
         rows.append(activities)
         costs = ""
         for activity in jsonForReport[province]["Cost"]:
             if costs == "":
                 costs += activity["activity"] + ": " + str(activity["cost"]) + " "
             else:
-                costs += "\n" + activity["activity"] + ": " + str(activity["cost"]) + " "
+                costs += (
+                    "\n" + activity["activity"] + ": " + str(activity["cost"]) + " "
+                )
 
-        #pagine.write('G' + str(row), costs)
+        # pagine.write('G' + str(row), costs)
 
         animals = ""
         # print jsonForReport[province]["AffectedAnimals"]
@@ -104,20 +114,22 @@ def createTableNumber8(month):
             else:
                 animals += "\n" + animal["animal"] + ": " + str(animal["quantity"])
 
-        #pagine.write('F' + str(row), animals)
+        # pagine.write('F' + str(row), animals)
         rows.append(animals)
         rows.append(costs)
-        #pagine.write('G' + str(row), "")
+        # pagine.write('G' + str(row), "")
         row = row + 1
-        if (rows[0]!=""):
+        if rows[0] != "":
             data.append(rows)
     print(len(data))
     return data
 
 
 def getProvinces(self, prj_id, startTime, finishTime):
-    sql = "select distinct(P.provincia_des) from %s.maintable M, %s.lkpprovincia P, %s.lkpcanton C where  M.canton = C.canton_cod and C.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s'" % (
-        prj_id, prj_id, prj_id, startTime, finishTime)
+    sql = (
+        "select distinct(P.provincia_des) from %s.maintable M, %s.lkpprovincia P, %s.lkpcanton C where  M.canton = C.canton_cod and C.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s'"
+        % (prj_id, prj_id, prj_id, startTime, finishTime)
+    )
 
     result = self.request.dbsession.execute(sql).fetchall()
 
@@ -126,8 +138,20 @@ def getProvinces(self, prj_id, startTime, finishTime):
 
 
 def getCantons(self, prj_id, startTime, finishTime):
-    sql = "select P.provincia_des, C.canton_des, count(*) as Cantidad, sum(M.landcultivated * if(M.unitland = 'mz',0.7,if(M.unitland='hectare',1,if(M.unitland='m2',0.0001,1)))) + IFNULL((select sum(pasto_total * if(pasto_total_unit = 'mz',0.7,if(pasto_total_unit='hectare',1,if(pasto_total_unit='m2',0.0001,1)))) from %s.livestock_repeat where i_d in (select i_d from %s.maintable W where W.canton = M.canton and MONTH(W.starttime_auto) between '%s' and '%s')),0) as Total  from %s.maintable M, %s.lkpprovincia P, %s.lkpcanton C  where  M.canton = C.canton_cod and C.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between %s and %s group by P.provincia_des, C.canton_des, M.canton;" % (
-        prj_id, prj_id, startTime, finishTime, prj_id, prj_id, prj_id, startTime, finishTime)
+    sql = (
+        "select P.provincia_des, C.canton_des, count(*) as Cantidad, sum(M.landcultivated * if(M.unitland = 'mz',0.7,if(M.unitland='hectare',1,if(M.unitland='m2',0.0001,1)))) + IFNULL((select sum(pasto_total * if(pasto_total_unit = 'mz',0.7,if(pasto_total_unit='hectare',1,if(pasto_total_unit='m2',0.0001,1)))) from %s.livestock_repeat where i_d in (select i_d from %s.maintable W where W.canton = M.canton and MONTH(W.starttime_auto) between '%s' and '%s')),0) as Total  from %s.maintable M, %s.lkpprovincia P, %s.lkpcanton C  where  M.canton = C.canton_cod and C.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between %s and %s group by P.provincia_des, C.canton_des, M.canton;"
+        % (
+            prj_id,
+            prj_id,
+            startTime,
+            finishTime,
+            prj_id,
+            prj_id,
+            prj_id,
+            startTime,
+            finishTime,
+        )
+    )
 
     result = self.request.dbsession.execute(sql).fetchall()
 
@@ -145,13 +169,44 @@ def getCantons(self, prj_id, startTime, finishTime):
             if data[0] == province:
                 DetailsByCanton["Cantons"].append(data[1])
                 DetailsByCanton["Area"] = DetailsByCanton["Area"] + round(data[3], 3)
-                DetailsByCanton["AffectedFamilies"] = DetailsByCanton["AffectedFamilies"] + data[2]
+                DetailsByCanton["AffectedFamilies"] = (
+                    DetailsByCanton["AffectedFamilies"] + data[2]
+                )
 
         jsonForReport[province] = DetailsByCanton
 
 
 def getActivities(self, prj_id, startTime, finishTime, month):
-    sql = "(select P.provincia_des,K.crop_list_des, sum(C.crop_planted * if(C.crop_yield_units = 'mz',0.7,if(C.crop_yield_units='ha',1,if(C.crop_yield_units='m2',0.0001,1)))) as Total from %s.maintable T, %s.crop_repeat C, %s.lkpcrop_list K, %s.lkpprovincia P, %s.lkpcanton Ca where T.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and T.i_d = C.i_d and C.crop_name = K.crop_list_cod and MONTH(T.starttime_auto) between '%s' and '%s' group by P.provincia_des, C.crop_name ) union all ( select provincia,pasto,sum(total) as total from ( ( select P.provincia_des provincia,'Pasto de piso' as pasto,(select sum(I.pasto_piso * if(I.pasto_piso_unit = 'mz',0.7,if(I.pasto_piso_unit='hectare',1,if(I.pasto_piso_unit='m2',0.0001,1)))) from %s.livestock_repeat I where I.i_d = M.i_d) as total  FROM %s.maintable M, %s.lkpprovincia P, %s.lkpcanton Ca where M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s') Union all ( select P.provincia_des provincia,'Pasto mejorado' as pasto,(select sum(I.pasto_mejorado * if(I.pasto_mejorado_unit = 'mz',0.7,if(I.pasto_mejorado_unit='hectare',1,if(I.pasto_mejorado_unit='m2',0.0001,1)))) from %s.livestock_repeat I where I.i_d = M.i_d) as total FROM %s.maintable M, %s.lkpprovincia P, %s.lkpcanton Ca where M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s') Union all  ( select P.provincia_des provincia,'Pasto de corte' as pasto,(select sum(I.pasto_corte * if(I.pasto_corte_unit = 'mz',0.7,if(I.pasto_corte_unit='hectare',1,if(I.pasto_corte_unit='m2',0.0001,1)))) from %s.livestock_repeat I where I.i_d = M.i_d) as total FROM %s.maintable M, %s.lkpprovincia P, %s.lkpcanton Ca where M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s') ) as TiposDePastos  where TiposDePastos.total IS NOT NULL group by provincia, pasto)" %(prj_id,prj_id,prj_id,prj_id,prj_id,startTime, finishTime,prj_id,prj_id,prj_id,prj_id,startTime,finishTime,prj_id,prj_id,prj_id,prj_id,startTime,finishTime,prj_id,prj_id,prj_id,prj_id,startTime,finishTime )
+    sql = (
+        "(select P.provincia_des,K.crop_list_des, sum(C.crop_planted * if(C.crop_yield_units = 'mz',0.7,if(C.crop_yield_units='ha',1,if(C.crop_yield_units='m2',0.0001,1)))) as Total from %s.maintable T, %s.crop_repeat C, %s.lkpcrop_list K, %s.lkpprovincia P, %s.lkpcanton Ca where T.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and T.i_d = C.i_d and C.crop_name = K.crop_list_cod and MONTH(T.starttime_auto) between '%s' and '%s' group by P.provincia_des, C.crop_name ) union all ( select provincia,pasto,sum(total) as total from ( ( select P.provincia_des provincia,'Pasto de piso' as pasto,(select sum(I.pasto_piso * if(I.pasto_piso_unit = 'mz',0.7,if(I.pasto_piso_unit='hectare',1,if(I.pasto_piso_unit='m2',0.0001,1)))) from %s.livestock_repeat I where I.i_d = M.i_d) as total  FROM %s.maintable M, %s.lkpprovincia P, %s.lkpcanton Ca where M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s') Union all ( select P.provincia_des provincia,'Pasto mejorado' as pasto,(select sum(I.pasto_mejorado * if(I.pasto_mejorado_unit = 'mz',0.7,if(I.pasto_mejorado_unit='hectare',1,if(I.pasto_mejorado_unit='m2',0.0001,1)))) from %s.livestock_repeat I where I.i_d = M.i_d) as total FROM %s.maintable M, %s.lkpprovincia P, %s.lkpcanton Ca where M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s') Union all  ( select P.provincia_des provincia,'Pasto de corte' as pasto,(select sum(I.pasto_corte * if(I.pasto_corte_unit = 'mz',0.7,if(I.pasto_corte_unit='hectare',1,if(I.pasto_corte_unit='m2',0.0001,1)))) from %s.livestock_repeat I where I.i_d = M.i_d) as total FROM %s.maintable M, %s.lkpprovincia P, %s.lkpcanton Ca where M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and MONTH(M.starttime_auto) between '%s' and '%s') ) as TiposDePastos  where TiposDePastos.total IS NOT NULL group by provincia, pasto)"
+        % (
+            prj_id,
+            prj_id,
+            prj_id,
+            prj_id,
+            prj_id,
+            startTime,
+            finishTime,
+            prj_id,
+            prj_id,
+            prj_id,
+            prj_id,
+            startTime,
+            finishTime,
+            prj_id,
+            prj_id,
+            prj_id,
+            prj_id,
+            startTime,
+            finishTime,
+            prj_id,
+            prj_id,
+            prj_id,
+            prj_id,
+            startTime,
+            finishTime,
+        )
+    )
 
     result = self.request.dbsession.execute(sql).fetchall()
 
@@ -166,9 +221,11 @@ def getActivities(self, prj_id, startTime, finishTime, month):
 
 
 def getEstablecimiento(self, prj_id, startTime, finishTime, month):
-    sql = "select provincia_des, cultivo, sum(costoestablecimiento) as establecimiento from (select P.provincia_des, K.crop_list_des as cultivo, (sum(C.crop_planted * if(C.crop_yield_units = 'mz',0.7,if(C.crop_yield_units='ha',1,if(C.crop_yield_units='m2',0.0001,1)))) * (select if(H.classCode = 4, 0,if(H.classCode = 3, 0.33,if(H.classCode = 2, 0.66,if(H.classCode = 1, 1,1)))) as porcentaje from ndvibioversity.hazardRainCanton H where H.canton_cod = T.canton and H.nmonth = %s ) ) * (ifnull(K.costperha,0) ) as costoestablecimiento from %s.maintable T, %s.crop_repeat C, %s.lkpcrop_list K, %s.lkpprovincia P, %s.lkpcanton Ca " \
-          " where T.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and T.i_d = C.i_d and C.crop_name = K.crop_list_cod and MONTH(T.starttime_auto) between '%s' and '%s' group by P.provincia_des,T.canton,C.crop_name) as selectTable group by provincia_des,cultivo;" % (
-          month, prj_id, prj_id, prj_id, prj_id, prj_id, startTime, finishTime)
+    sql = (
+        "select provincia_des, cultivo, sum(costoestablecimiento) as establecimiento from (select P.provincia_des, K.crop_list_des as cultivo, (sum(C.crop_planted * if(C.crop_yield_units = 'mz',0.7,if(C.crop_yield_units='ha',1,if(C.crop_yield_units='m2',0.0001,1)))) * (select if(H.classCode = 4, 0,if(H.classCode = 3, 0.33,if(H.classCode = 2, 0.66,if(H.classCode = 1, 1,1)))) as porcentaje from ndvibioversity.hazardRainCanton H where H.canton_cod = T.canton and H.nmonth = %s ) ) * (ifnull(K.costperha,0) ) as costoestablecimiento from %s.maintable T, %s.crop_repeat C, %s.lkpcrop_list K, %s.lkpprovincia P, %s.lkpcanton Ca "
+        " where T.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and T.i_d = C.i_d and C.crop_name = K.crop_list_cod and MONTH(T.starttime_auto) between '%s' and '%s' group by P.provincia_des,T.canton,C.crop_name) as selectTable group by provincia_des,cultivo;"
+        % (month, prj_id, prj_id, prj_id, prj_id, prj_id, startTime, finishTime)
+    )
     result = self.request.dbsession.execute(sql).fetchall()
 
     for province in jsonForReport.keys():
@@ -177,7 +234,9 @@ def getEstablecimiento(self, prj_id, startTime, finishTime, month):
                 if round(activity[2], 3) != 0.0:
                     DetailsByestablishment = {"activity": "", "area": 0}
                     DetailsByestablishment["activity"] = activity[1]
-                    DetailsByestablishment["cost"] = str(round(activity[2], 3))+"</br>"
+                    DetailsByestablishment["cost"] = (
+                        str(round(activity[2], 3)) + "</br>"
+                    )
                     jsonForReport[province]["Cost"].append(DetailsByestablishment)
 
 
@@ -186,8 +245,11 @@ def defaultencode(obj):
         return str(obj)
 
 
-def getAffectedAnimals(self, prj_id,startTime, finishTime):
-    sql = "select P.provincia_des,concat(LL.livestock_list_des,' ',if(LR.live_name='cattle',LR.tipo_ganaderia,if(LR.live_name='chicken',LR.tipo_aves,''))) as live, if(LR.live_name='bees', sum(LR.bee_number),sum(LR.live_number)) as total FROM %s.maintable M, %s.livestock_repeat LR, %s.lkpprovincia P, %s.lkpcanton Ca, %s.lkplivestock_list  LL  where LR.live_name = LL.livestock_list_cod and M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and M.i_d = LR.i_d and MONTH(M.starttime_auto) between '%s' and '%s' group by P.provincia_des,concat(LL.livestock_list_des,' ',if(LR.live_name='cattle',LR.tipo_ganaderia,if(LR.live_name='chicken',LR.tipo_aves,''))), LR.live_name"%(prj_id,prj_id,prj_id,prj_id,prj_id,startTime,finishTime)
+def getAffectedAnimals(self, prj_id, startTime, finishTime):
+    sql = (
+        "select P.provincia_des,concat(LL.livestock_list_des,' ',if(LR.live_name='cattle',LR.tipo_ganaderia,if(LR.live_name='chicken',LR.tipo_aves,''))) as live, if(LR.live_name='bees', sum(LR.bee_number),sum(LR.live_number)) as total FROM %s.maintable M, %s.livestock_repeat LR, %s.lkpprovincia P, %s.lkpcanton Ca, %s.lkplivestock_list  LL  where LR.live_name = LL.livestock_list_cod and M.canton = Ca.canton_cod and Ca.provincia_cod = P.provincia_cod and M.i_d = LR.i_d and MONTH(M.starttime_auto) between '%s' and '%s' group by P.provincia_des,concat(LL.livestock_list_des,' ',if(LR.live_name='cattle',LR.tipo_ganaderia,if(LR.live_name='chicken',LR.tipo_aves,''))), LR.live_name"
+        % (prj_id, prj_id, prj_id, prj_id, prj_id, startTime, finishTime)
+    )
 
     result = self.request.dbsession.execute(sql).fetchall()
 
@@ -196,11 +258,11 @@ def getAffectedAnimals(self, prj_id,startTime, finishTime):
             if activity[0] == province:
                 DetailsByanimal = {"animal": "", "quantity": 0}
                 DetailsByanimal["animal"] = activity[1]
-                DetailsByanimal["quantity"] = str(activity[2]) +"</br>"
+                DetailsByanimal["quantity"] = str(activity[2]) + "</br>"
                 jsonForReport[province]["AffectedAnimals"].append(DetailsByanimal)
 
 
-def main(self, prj_id,start, end):
+def main(self, prj_id, start, end):
     # datos = ["localhost", "root", "inspinia4", "FS_7b758deb_6f36_424c_9db8_5e566a1fef9a"]
     # connection = MySQLdb.connect(*datos, charset='utf8')
 
@@ -212,8 +274,8 @@ def main(self, prj_id,start, end):
     getCantons(self, prj_id, startTime, finishTime)
     getActivities(self, prj_id, startTime, finishTime, month)
     getAffectedAnimals(self, prj_id, startTime, finishTime)
-    getEstablecimiento(self, prj_id,startTime, finishTime, month)
+    getEstablecimiento(self, prj_id, startTime, finishTime, month)
 
-    #createTableNumber8(month)
+    # createTableNumber8(month)
 
     return createTableNumber8(month)

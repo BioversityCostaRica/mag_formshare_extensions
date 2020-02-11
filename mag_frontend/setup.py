@@ -32,5 +32,7 @@ setup(
     zip_safe=False,
     extras_require={"testing": tests_require},
     install_requires=requires,
-    entry_points={"formshare.plugins": ["mag_frontend = mag_frontend.plugin:mag_frontend"]},
+    entry_points={
+        "formshare.plugins": ["mag_frontend = mag_frontend.plugin:mag_frontend"]
+    },
 )

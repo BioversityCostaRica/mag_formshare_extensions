@@ -3,7 +3,7 @@ import formshare.plugins.utilities as u
 from sqlalchemy import Table, Column, Unicode
 from sqlalchemy.orm import mapper
 
-from .views import MyPublicView, MyPrivateView, PrjStatus, SensiMap,PrjReport
+from .views import MyPublicView, MyPrivateView, PrjStatus, SensiMap, PrjReport
 from .processes.evaluateForm import validateForm
 from .orm.extTask import ExtTask
 
@@ -40,33 +40,18 @@ class ext_climate(plugins.SingletonPlugin):
         )
 
         custom_map.append(
-            u.add_route(
-                "status",
-                "/user/{userid}/status/{prj}",
-                PrjStatus,
-                "json",
-            )
+            u.add_route("status", "/user/{userid}/status/{prj}", PrjStatus, "json")
         )
 
         custom_map.append(
             u.add_route(
-                "sensimap",
-                "/user/{userid}/sensimap/{prj}/{div}",
-                SensiMap,
-                "json",
+                "sensimap", "/user/{userid}/sensimap/{prj}/{div}", SensiMap, "json"
             )
         )
 
         custom_map.append(
-            u.add_route(
-                "report",
-                "/user/{userid}/report/{prj}",
-                PrjReport,
-                "json",
-            )
+            u.add_route("report", "/user/{userid}/report/{prj}", PrjReport, "json")
         )
-
-
 
         return custom_map
 
@@ -117,19 +102,60 @@ class ext_climate(plugins.SingletonPlugin):
     def add_js_resources(self, config):
         # You can add your JS resources here
         myJS = []
-        myJS.append(u.add_js_resource("myResource", "sparkline", "js/sparkline/jquery.sparkline.min.js"))
+        myJS.append(
+            u.add_js_resource(
+                "myResource", "sparkline", "js/sparkline/jquery.sparkline.min.js"
+            )
+        )
 
         myJS.append(u.add_js_resource("myResource", "flot", "js/flot/jquery.flot.js"))
-        myJS.append(u.add_js_resource("myResource", "flotTooltip", "js/flot/jquery.flot.tooltip.min.js"))
-        myJS.append(u.add_js_resource("myResource", "flotSpline", "js/flot/jquery.flot.spline.js"))
-        myJS.append(u.add_js_resource("myResource", "flotResize", "js/flot/jquery.flot.resize.js"))
-        myJS.append(u.add_js_resource("myResource", "chosen", "js/chosen/chosen.jquery.js", None))
-        myJS.append(u.add_js_resource("myResource", "chartjs", "js/chartJs/Chart.min.js", None))
-        myJS.append(u.add_js_resource("myResource", "ligthbox", "js/ligthbox/lightbox.js", None))
-        myJS.append(u.add_js_resource("myResource", "datepicker", "js/datapicker/bootstrap-datepicker.js", None))
-        myJS.append(u.add_js_resource("myResource", "datatablesB", "js/dataTables/dataTables.bootstrap4.min.js", None))
-        myJS.append(u.add_js_resource("myResource", "datatables", "js/dataTables/datatables.min.js", None))
-
+        myJS.append(
+            u.add_js_resource(
+                "myResource", "flotTooltip", "js/flot/jquery.flot.tooltip.min.js"
+            )
+        )
+        myJS.append(
+            u.add_js_resource(
+                "myResource", "flotSpline", "js/flot/jquery.flot.spline.js"
+            )
+        )
+        myJS.append(
+            u.add_js_resource(
+                "myResource", "flotResize", "js/flot/jquery.flot.resize.js"
+            )
+        )
+        myJS.append(
+            u.add_js_resource(
+                "myResource", "chosen", "js/chosen/chosen.jquery.js", None
+            )
+        )
+        myJS.append(
+            u.add_js_resource("myResource", "chartjs", "js/chartJs/Chart.min.js", None)
+        )
+        myJS.append(
+            u.add_js_resource("myResource", "ligthbox", "js/ligthbox/lightbox.js", None)
+        )
+        myJS.append(
+            u.add_js_resource(
+                "myResource",
+                "datepicker",
+                "js/datapicker/bootstrap-datepicker.js",
+                None,
+            )
+        )
+        myJS.append(
+            u.add_js_resource(
+                "myResource",
+                "datatablesB",
+                "js/dataTables/dataTables.bootstrap4.min.js",
+                None,
+            )
+        )
+        myJS.append(
+            u.add_js_resource(
+                "myResource", "datatables", "js/dataTables/datatables.min.js", None
+            )
+        )
 
         return myJS
 
@@ -137,19 +163,49 @@ class ext_climate(plugins.SingletonPlugin):
         # You can add your CSS resources here
         myCSS = []
         # myCSS.append(u.addCSSResource('mylibrary', 'myCSSResource', 'relative/path/to/resources/myresource.css'))
-        myCSS.append(u.add_css_resource('myResource', 'animate', 'css/animate.css'))
-        myCSS.append(u.add_css_resource('myResource', 'bootstrap', 'css/bootstrap.css'))
-        myCSS.append(u.add_css_resource('myResource', 'style', 'css/style.css'))
-        myCSS.append(u.add_css_resource('myResource', 'font', 'css/font-awesome.css'))
-        myCSS.append(u.add_css_resource('myResource', 'chosen', 'css/chosen/bootstrap-chosen.css', None))
-        myCSS.append(u.add_css_resource('myResource', 'ligthbox', 'css/ligthbox/lightbox.css', None))
-        myCSS.append(u.add_css_resource('myResource', 'datepicker', 'css/datapicker/datepicker3.css', None))
-        myCSS.append(u.add_css_resource('myResource', 'datatables', 'css/dataTables/datatables.min.css', None))
-        myCSS.append(u.add_css_resource('myResource', 'spinners', 'css/textSpinners/spinners.css', None))
+        myCSS.append(u.add_css_resource("myResource", "animate", "css/animate.css"))
+        myCSS.append(u.add_css_resource("myResource", "bootstrap", "css/bootstrap.css"))
+        myCSS.append(u.add_css_resource("myResource", "style", "css/style.css"))
+        myCSS.append(u.add_css_resource("myResource", "font", "css/font-awesome.css"))
+        myCSS.append(
+            u.add_css_resource(
+                "myResource", "chosen", "css/chosen/bootstrap-chosen.css", None
+            )
+        )
+        myCSS.append(
+            u.add_css_resource(
+                "myResource", "ligthbox", "css/ligthbox/lightbox.css", None
+            )
+        )
+        myCSS.append(
+            u.add_css_resource(
+                "myResource", "datepicker", "css/datapicker/datepicker3.css", None
+            )
+        )
+        myCSS.append(
+            u.add_css_resource(
+                "myResource", "datatables", "css/dataTables/datatables.min.css", None
+            )
+        )
+        myCSS.append(
+            u.add_css_resource(
+                "myResource", "spinners", "css/textSpinners/spinners.css", None
+            )
+        )
         return myCSS
 
-    def after_form_checks(self, request, user, project, form, form_data, form_directory, survey_file, create_file,
-                          insert_file, itemsets_csv):
+    def after_odk_form_checks(
+        request,
+        user,
+        project,
+        form,
+        form_data,
+        form_directory,
+        survey_file,
+        create_file,
+        insert_file,
+        itemsets_csv,
+    ):
 
         if request.registry.settings.get("climate.user", "") == user:
             return validateForm(create_file)

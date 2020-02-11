@@ -15,10 +15,18 @@ def ProcessStatus(self, project_id):
     :return: 1 error, 0 termino, 2 en proceso, 4 no existe
     """
 
-    result = self.request.dbsession.query(ExtTask).filter(ExtTask.project == project_id).first()
+    result = (
+        self.request.dbsession.query(ExtTask)
+        .filter(ExtTask.project == project_id)
+        .first()
+    )
 
     if result:
-        resultB = self.request.dbsession.query(FinishedTask.task_enumber).filter(FinishedTask.task_id==result.id_task).first()
+        resultB = (
+            self.request.dbsession.query(FinishedTask.task_enumber)
+            .filter(FinishedTask.task_id == result.id_task)
+            .first()
+        )
         if resultB is None:
             return 2
         else:

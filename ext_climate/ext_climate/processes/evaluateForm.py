@@ -6,6 +6,7 @@
 from lxml import etree
 from formshare.models.formshare import Odkform
 
+
 def requiredFields():
     fields = {
         "livestock_repeat": {
@@ -30,10 +31,10 @@ def requiredFields():
                 "ensilaje": {"odktype": "decimal"},
                 "ensilaje_unit": {"odktype": "select one"},
                 "fecha_pasto": {"odktype": "date"},
-                "rowuuid": {"odktype": ""}
-
+                "rowuuid": {"odktype": ""},
             }
-        }, "crop_repeat": {
+        },
+        "crop_repeat": {
             "fields": {
                 "crop_repeat_rowid": {"odktype": ""},
                 "crop_rep_number": {"odktype": "calculate"},
@@ -43,9 +44,10 @@ def requiredFields():
                 "crop_yield_units": {"odktype": "select one"},
                 "crop_irrigated": {"odktype": "select one"},
                 "fecha_siembra": {"odktype": "date"},
-                "rowuuid": {"odktype": ""}
+                "rowuuid": {"odktype": ""},
             }
-        }, "maintable": {
+        },
+        "maintable": {
             "fields": {
                 "surveyid": {"odktype": ""},
                 "originid": {"odktype": ""},
@@ -117,17 +119,22 @@ def requiredFields():
                 "gps": {"odktype": "geopoint"},
                 "endtime_auto": {"odktype": "end"},
                 "endtime_calculated": {"odktype": "calculate"},
-                "rowuuid": {"odktype": ""}
+                "rowuuid": {"odktype": ""},
             }
-        }
+        },
     }
     return fields
 
 
-def getFormId(self,schema):
-    result=self.request.dbsession.query(Odkform.form_id).filter(Odkform.form_schema==schema).first()
+def getFormId(self, schema):
+    result = (
+        self.request.dbsession.query(Odkform.form_id)
+        .filter(Odkform.form_schema == schema)
+        .first()
+    )
 
     return result.form_id
+
 
 def validateForm(create_file):
     myTables = requiredFields()
@@ -136,7 +143,10 @@ def validateForm(create_file):
 
     err = []
 
-    if root.find(".//table[@name='crop_repeat']") is None and root.find(".//table[@name='livestock_repeat']") is None:
+    if (
+        root.find(".//table[@name='crop_repeat']") is None
+        and root.find(".//table[@name='livestock_repeat']") is None
+    ):
         return False, "Este usuario solo puede subir formularios aptos para sequia"
 
     for k in myTables.keys():
@@ -149,9 +159,15 @@ def validateForm(create_file):
                         t_fields.remove(i.attrib["name"])
                         odktype = myTables[k]["fields"][i.attrib["name"]]["odktype"]
                         if str(i.attrib["odktype"]) != str(odktype):
-                            err.append("En el campo %s el tipo de dato debe ser: %s\n" % (i.attrib["name"], odktype))
+                            err.append(
+                                "En el campo %s el tipo de dato debe ser: %s\n"
+                                % (i.attrib["name"], odktype)
+                            )
             if len(t_fields) is not 0:
-                err.append("En la tabla %s faltan los siguientes campos: %s\n" % (k, ", ".join(t_fields)))
+                err.append(
+                    "En la tabla %s faltan los siguientes campos: %s\n"
+                    % (k, ", ".join(t_fields))
+                )
         else:
             err.append("No se encuentra la tabla: %s\n" % k)
 
