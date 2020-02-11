@@ -1,6 +1,8 @@
 MAG Branding Extension
 ==============
 
+This extension change the look and feel of FormShare with the logos and text of the Ministry of Agriculture.
+
 Getting Started
 ---------------
 
@@ -14,12 +16,13 @@ $ . ./path/to/FormShare/bin/activate
 $ cd mag_frontend
 ```
 
-- Build the plugin
+- Build the translation files and the plug-in
 ```
+$ python setup.py compile_catalog
 $ python setup.py develop
 ```
 
-- Add the plugin to the FormShare list of plugins by editing the following line in development.ini or production.ini
+- Add the plug-in to the FormShare list of plug-ins by editing the following line in development.ini or production.ini
 ```
     #formshare.plugins = examplePlugin
     formshare.plugins = mag_frontend
