@@ -1,0 +1,15 @@
+{% extend_me %}
+{% import 'dashboard/macros/form.jinja2' as form %}
+
+{% block logginlogo %}
+    <h1><img src="{{ request.url_for_static('just_logo_big.png','mag_branding') }}"></h1>
+{% endblock logginlogo %}
+
+{% block loginwelcome %}
+    <h3>{{ _("Welcome to MAG's installation of FormShare") }}</h3>
+{% endblock loginwelcome %}
+
+{% block copyright %}
+    <p class="m-t"> <small>MAG 2020</small> </p>
+    <p class="m-t"> <small>FS Version 2.5 (20200120)</small> </p>
+{% endblock copyright %}

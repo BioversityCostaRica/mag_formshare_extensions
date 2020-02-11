@@ -1,0 +1,13 @@
+{% extend_me %}
+
+{% block header_main_button %}
+    <a class="navbar-minimalize minimalize-styl-2" href="#"><img alt="image" src="{{ request.url_for_static('logo_small.png',"mag_branding") }}"/></a>
+{% endblock header_main_button %}
+
+{% block header_top_welcome %}
+    {% if showWelcome %}
+        <li style="padding: 20px">
+            <span class="m-r-sm text-muted welcome-message">{{ _("Welcome to MAG's installation of FormShare") }}</span>
+        </li>
+    {% endif %}
+{% endblock header_top_welcome %}

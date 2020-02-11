@@ -1,0 +1,134 @@
+# Spanish translations for mag_frontend.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the mag_frontend
+# project.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# Carlos Quiros <cquiros@qlands.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: mag_frontend 1.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-02-11 14:55-0600\n"
+"PO-Revision-Date: 2020-02-11 14:57-0600\n"
+"Last-Translator: Carlos Quiros <cquiros@qlands.com>\n"
+"Language: es\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: mag_frontend/templates/dashboard/snippets/footer.jinja2:5
+msgid "FS Version"
+msgstr "Versión de FormShare"
+
+#: mag_frontend/templates/dashboard/snippets/header.jinja2:10
+#: mag_frontend/templates/generic/login.jinja2:9
+msgid "Welcome to MAG's installation of FormShare"
+msgstr "Bienvenido al FormShare del MAG"
+
+#: mag_frontend/templates/landing/index.jinja2:4
+msgid "MAG's installation of FormShare"
+msgstr "FormShare del MAG"
+
+#: mag_frontend/templates/landing/snippets/contact.jinja2:6
+msgid "Support email"
+msgstr "Correo de soporte técnico"
+
+#: mag_frontend/templates/landing/snippets/contact.jinja2:13
+msgid "Version de FormShare"
+msgstr "Versión de FormShare"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:5
+msgid "FormShare installation for the Ministry of Agriculture"
+msgstr "Instalación de FormShare para el Ministerio de Agricultura y Ganadería"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:12
+msgid "Centralize data"
+msgstr "Centralize sus datos"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:13
+msgid ""
+"Store your data in a consistent way inside a relational database without "
+"duplicates or inconsistencies"
+msgstr ""
+"Almacene datos en forma consistente dentro de una base de datos "
+"relacional sin duplicados e inconsistencias"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:17
+msgid "Complete mobile support"
+msgstr "Soporte completo para dispositivos móviles"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:18
+msgid "FormShare supports data collection technologies like"
+msgstr "FormShare tiene soporte para tecnologías de recolección de datos como"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:27
+msgid "Decentralize data access"
+msgstr "Descentralize el acceso a los datos"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:28
+msgid ""
+"Create collaborations around data and allow access anywhere using common "
+"tools like Excel, STATA or R"
+msgstr ""
+"Cree colaboraciones al rededor de los datos usando herramientas como "
+"Excel, STATA o R"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:32
+msgid "Track changes"
+msgstr "Revisión de cambios"
+
+#: mag_frontend/templates/landing/snippets/features2.jinja2:33
+msgid ""
+"Browse through your data online and track and manage the changes made on "
+"it"
+msgstr "Navega por tus datos y revisa los cambio hechos en los datos"
+
+#: mag_frontend/templates/landing/snippets/header.jinja2:58
+msgid "Sign in"
+msgstr "Ingresar"
+
+#: mag_frontend/templates/landing/snippets/header.jinja2:66
+msgid "Sign up"
+msgstr "Registrarse"
+
+#: mag_frontend/templates/landing/snippets/header.jinja2:74
+msgid "Language"
+msgstr "Lenguaje"
+
+#: mag_frontend/templates/landing/snippets/slider.jinja2:10
+msgid "Welcome to"
+msgstr "Bienvenido a"
+
+#: mag_frontend/templates/landing/snippets/slider.jinja2:11
+msgid "The Ministry's data management platform for mobile data collection"
+msgstr ""
+"La plataforma del Ministerio para el manejo de datos usando tecnologías "
+"móviles"
+
+#: mag_frontend/templates/landing/snippets/slider.jinja2:21
+msgid "Platform For Climatic Risks"
+msgstr "Plataforma para Riesgos Climáticos"
+
+#: mag_frontend/templates/landing/snippets/slider.jinja2:22
+msgid "This plugin for FormShare allows the management of climatic risks "
+msgstr "Este completo de FormShare permite la gestión de riesgos climáticos"
+
+#: mag_frontend/templates/landing/snippets/slider.jinja2:22
+msgid "using satellite data and district level indicators"
+msgstr "usando datos satelitales e indicadores a nivel distrital"
+
+#: mag_frontend/templates/landing/snippets/slider.jinja2:36
+msgid "Next"
+msgstr "Siguiente"
+
+#~ msgid "Powered by FormShare"
+#~ msgstr "Usando FormShare"
+
+#~ msgid "Version"
+#~ msgstr "Versión"
+

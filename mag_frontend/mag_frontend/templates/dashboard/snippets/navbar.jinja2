@@ -1,7 +1,6 @@
 {% extend_me %}
-
-{% block nav_links_extra %}
-    <li {% if activeMenu == 'myCustomMenu' %}class="active" {% endif %}>
-        <a href="{{ request.route_url('plugin_myprivateview',userid=activeUser.login) }}"><i class="far fa-thumbs-up"></i> <span class="nav-label">{{ _('My private page') }}</span></a>
-    </li>
-{% endblock %}
+<div class="logo-element">
+    {% block logo_element %}
+        <img alt="image" src="{{ request.url_for_static('just_logo.png','mag_branding') }}"/>
+    {% endblock logo_element %}
+</div>
