@@ -2,6 +2,8 @@ import formshare.plugins as plugins
 import formshare.plugins.utilities as u
 from sqlalchemy import Table, Column, Unicode
 from sqlalchemy.orm import mapper
+import sys
+import os
 
 from .views import MyPublicView, MyPrivateView, PrjStatus, SensiMap, PrjReport
 from .processes.evaluateForm import validateForm
@@ -16,6 +18,7 @@ class ext_climate(plugins.SingletonPlugin):
     plugins.implements(plugins.IDatabase)
     plugins.implements(plugins.IResource)
     plugins.implements(plugins.IForm)
+    plugins.implements(plugins.ITranslation)
 
     def before_mapping(self, config):
         # We don't add any routes before the host application
@@ -195,6 +198,7 @@ class ext_climate(plugins.SingletonPlugin):
         return myCSS
 
     def after_odk_form_checks(
+        self,
         request,
         user,
         project,
@@ -206,8 +210,50 @@ class ext_climate(plugins.SingletonPlugin):
         insert_file,
         itemsets_csv,
     ):
+        print("---------\n\n\n\n\n")
+        print(request.registry.settings.get("climate.user", ""))
+        print(user)
+        print("\n\n\n\n\n-----------")
 
         if request.registry.settings.get("climate.user", "") == user:
             return validateForm(create_file)
         else:
+            print("---------\n\n\n\n\n")
+            print("True")
+            print("\n\n\n\n\n-----------")
+
             return True, ""
+
+
+    def before_adding_form(
+            self, request, form_type, user_id, project_id, form_id, form_data
+    ):
+        return True, "", form_data
+
+    def after_adding_form(
+            self, request, form_type, user_id, project_id, form_id, form_data
+    ):
+        return None
+
+    def before_updating_form(
+            self, request, form_type, user_id, project_id, form_id, form_data
+    ):
+        return True, "",form_data
+
+    def after_updating_form(
+            self, request, form_type, user_id, project_id, form_id, form_data
+    ):
+        return None
+
+    def before_deleting_form(self, request, form_type, user_id, project_id, form_id):
+        return True, ""
+
+    def after_deleting_form(self, request, form_type, user_id, project_id, form_id):
+        return None
+
+    def get_translation_directory(self):
+        module = sys.modules["ext_climate"]
+        return os.path.join(os.path.dirname(module.__file__), "locale")
+
+    def get_translation_domain(self):
+        return "ext_climate"
