@@ -32,7 +32,7 @@ codecov==2.0.15
 contextlib2==0.6.0.post1
 cookiecutter==1.6.0
 coverage==4.5.4
-cryptography==2.7
+cryptography==3.2
 cycler==0.10.0
 decorator==4.4.0
 descartes==1.1.0
