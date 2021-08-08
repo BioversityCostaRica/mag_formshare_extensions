@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3601fa9c-fbb6-46d3-9bf9-17197008fd7c" name="Default Changelist" comment="" />
+    <list default="true" id="3601fa9c-fbb6-46d3-9bf9-17197008fd7c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/ext_climate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ext_climate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,17 +22,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="JupyterTrust" id="08162686-5203-495c-bfee-2fb93be673cb" />
   <component name="ProjectId" id="1Qf9Vyb9VA8B3tL3fY39A09BVUb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -97,18 +106,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -170,33 +168,47 @@
       <workItem from="1575402796449" duration="14000" />
       <workItem from="1581957521416" duration="2656000" />
       <workItem from="1582056197751" duration="129000" />
+      <workItem from="1598821963446" duration="5569000" />
+      <workItem from="1605637391178" duration="671000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="637" y="247" width="645" height="546" key="find.popup" timestamp="1581975212685">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="1123" y="453" key="FileChooserDialogImpl" timestamp="1598822030126">
+      <screen x="112" y="0" width="2448" height="1390" />
     </state>
-    <state x="637" y="247" width="645" height="546" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1581975212685" />
+    <state x="1123" y="453" key="FileChooserDialogImpl/112.0.2448.1390/112.0.2448.1390@112.0.2448.1390" timestamp="1598822030126" />
+    <state x="837" y="330" key="SettingsEditor" timestamp="1598822039645">
+      <screen x="112" y="0" width="2448" height="1390" />
+    </state>
+    <state x="837" y="330" key="SettingsEditor/112.0.2448.1390/112.0.2448.1390@112.0.2448.1390" timestamp="1598822039645" />
+    <state x="1040" y="434" width="592" height="522" key="find.popup" timestamp="1605637406791">
+      <screen x="112" y="0" width="2448" height="1390" />
+    </state>
+    <state x="1040" y="434" width="592" height="522" key="find.popup/112.0.2448.1390/112.0.2448.1390@112.0.2448.1390" timestamp="1605637406791" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ext_climate$pr.coverage" NAME="pr Coverage Results" MODIFIED="1574718093105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ext_climate/processes" />
     <SUITE FILE_PATH="coverage/ext_climate$reportMAG.coverage" NAME="reportMAG Coverage Results" MODIFIED="1574719240467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ext_climate/processes" />
+    <SUITE FILE_PATH="coverage/ext_climate$pr.coverage" NAME="pr Coverage Results" MODIFIED="1574718093105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ext_climate/processes" />
   </component>
 </project>
