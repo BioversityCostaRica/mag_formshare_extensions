@@ -1,7 +1,11 @@
 {% extend_me %}
 
 {% block header_main_button %}
-    <a class="navbar-minimalize minimalize-styl-2" href="#"><img alt="image" src="{{ request.url_for_static('logo_small.png',"mag_branding") }}"/></a>
+    {% if '@senasa' in activeUser.email|lower %}
+        <a class="navbar-minimalize minimalize-styl-2" href="#"><img alt="image" src="{{ request.url_for_static('logo_senasa_small.png',"mag_branding") }}"/></a>
+    {% else %}
+        <a class="navbar-minimalize minimalize-styl-2" href="#"><img alt="image" src="{{ request.url_for_static('logo_small.png',"mag_branding") }}"/></a>
+    {% endif %}
 {% endblock header_main_button %}
 
 {% block header_top_welcome %}
