@@ -1,0 +1,8 @@
+{% extend_me %}
+
+{% block export_types %}
+    {{ super() }}
+    {% if request.h.is_cne_form(request,formDetails.form_id) %}
+        <option value="CNE">Cuadros 8 y 9 para la CNE</option>
+    {% endif %}
+{% endblock export_types %}

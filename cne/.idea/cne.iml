@@ -5,10 +5,14 @@
     <orderEntry type="jdk" jdkName="Python 3.10 (env_formshare)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="PLAIN" />
+    <option name="myDocStringFormat" value="Plain" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/mag_frontend/mag_frontend/templates" />
+        <option value="$MODULE_DIR$/cne/templates" />
       </list>
     </option>
   </component>
