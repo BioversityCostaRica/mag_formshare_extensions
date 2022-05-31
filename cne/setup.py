@@ -33,7 +33,7 @@ setup(
     extras_require={"testing": tests_require},
     install_requires=requires,
     entry_points={
-        "formshare.plugins": ["cne = cne.plugin:cne"],
-        "formshare.tasks": ["cne = cne.celerytasks"],
+        "formshare.plugins": ["cne = cne.plugin:CNE"],
+        "formshare.tasks": ["cne = cne.product.celery_task"],
     },
 )

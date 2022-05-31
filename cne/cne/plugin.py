@@ -7,7 +7,7 @@ from pyramid.httpexceptions import HTTPFound
 
 
 def is_cne_form(request, form_id):
-    cne_forms = request.registry.settings.get("cne_forms", "")
+    cne_forms = request.registry.settings.get("cne.forms", "")
     cne_forms = cne_forms.split(",")
     if form_id in cne_forms:
         return True

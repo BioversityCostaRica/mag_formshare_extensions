@@ -1,7 +1,6 @@
 from formshare.plugins.utilities import FormSharePrivateView
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from formshare.processes.db import get_project_id_from_name, get_form_data
-from formshare.processes.odk.api import get_odk_path
 from cne.product.cne_sheets import generate_cne_sheets
 
 
@@ -59,7 +58,6 @@ class GenerateCNESheets(FormSharePrivateView):
         user_id = self.request.matchdict["userid"]
         project_code = self.request.matchdict["projcode"]
         form_id = self.request.matchdict["formid"]
-        options = int(self.request.params.get("options", "1"))
         project_id = get_project_id_from_name(self.request, user_id, project_code)
         project_details = {}
         if project_id is not None:
@@ -80,15 +78,13 @@ class GenerateCNESheets(FormSharePrivateView):
         if project_details["access_type"] >= 4:
             raise HTTPNotFound
 
-        odk_dir = get_odk_path(self.request)
+        form_data["form_schema"] = "FS_85e92e5f_1067_42f2_8146_ffe25f6c70cf"
         generate_cne_sheets(
             self.request,
             self.user.id,
             project_id,
             form_id,
-            odk_dir,
             form_data["form_schema"],
-            options,
         )
 
         next_page = self.request.route_url(
