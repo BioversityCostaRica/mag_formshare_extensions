@@ -30,7 +30,7 @@ click-plugins==1.1.1
 cligj==0.5.0
 codecov==2.0.15
 contextlib2==0.6.0.post1
-cookiecutter==1.6.0
+cookiecutter==2.1.1
 coverage==4.5.4
 cryptography==2.7
 cycler==0.10.0
