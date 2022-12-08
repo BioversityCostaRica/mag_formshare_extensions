@@ -19,7 +19,7 @@ black==19.3b0
 boto==2.49.0
 bs4==0.0.1
 celery==4.3.0
-certifi==2019.6.16
+certifi==2022.12.7
 cffi==1.12.3
 Chameleon==3.6.2
 chardet==3.0.4
